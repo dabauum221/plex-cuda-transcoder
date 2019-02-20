@@ -6,14 +6,14 @@ MAINTAINER Daniel Baum <daniel.m.baum@gmail.com>
 # Install packages
 RUN apt-get -y update && apt-get install -y wget nano git build-essential yasm pkg-config
 
-RUN git clone https://github.com/FFmpeg/nv-codec-headers /root/nv-codec-headers && \
+RUN git clone --branch n8.2.15.7 https://github.com/FFmpeg/nv-codec-headers.git /root/nv-codec-headers && \
   cd /root/nv-codec-headers &&\
   make -j8 && \
   make install -j8 && \
   cd /root && rm -rf nv-codec-headers
 
 # Compile and install ffmpeg from source
-RUN git clone https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
+RUN git clone --branch n3.3.9 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
   cd /root/ffmpeg && ./configure \
   --enable-nonfree --disable-shared \
   --enable-nvenc --enable-cuda \
