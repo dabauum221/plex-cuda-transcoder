@@ -1,0 +1,20 @@
+{
+  "name": "ffmpeg-cuda",
+  "description": "FFmpeg CUDA encoder",
+  "license": "UNLICENSED",
+  "main": "encoder.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dabauum221/ffmpeg-cuda.git"
+  },
+  "scripts": {
+    "start": "node folder-watcher.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Baum",
+  "dependencies": {
+    "chokidar": "~2.1.2",
+    "sleep": "~6.0.0"
+  },
+  "devDependencies": {}
+}

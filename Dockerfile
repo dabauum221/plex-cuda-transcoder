@@ -25,7 +25,21 @@ RUN git clone --branch n3.3.9 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
   make install -j8 && \
   cd /root && rm -rf ffmpeg
 
+# Setup NVIDIA graphics card capabilities
 ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
 
-WORKDIR /root
+FROM node:8
 
+# Create app directory
+WORKDIR /usr/src/app
+
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+
+# Install app dependencies
+RUN npm install --only=production
+
+# Bundle app source
+COPY . .
+
+CMD [ "npm", "start" ]
