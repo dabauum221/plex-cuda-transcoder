@@ -5,10 +5,10 @@
   "main": "encoder.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dabauum221/ffmpeg-cuda.git"
+    "url": "https://github.com/dabauum221/ffmpeg-cuda-encoder.git"
   },
   "scripts": {
-    "start": "node folder-watcher.js",
+    "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Daniel Baum",
