@@ -35,7 +35,7 @@ function encode(path) {
                 '-profile:v', 'main',
                 '-level:v', '4.1',
                 '-f', 'matroska',
-                patch + '.mkv'];
+                path + '.mkv'];
     var ffmpeg = spawn('ffmpeg', args);
     console.log('Spawning ffmpeg ' + args.join(' '));
     ffmpeg.on('exit', function (code, signal) {
