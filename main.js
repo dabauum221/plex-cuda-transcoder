@@ -3,8 +3,20 @@ var fs = require("fs");
 var child_process = require('child_process');
 var sleep = require('sleep');
 var path = require('path');
+var async = require('async');
 
 var spawn = child_process.spawn;
+var queue = async.queue(function(task, callback) {
+    console.log('Start encoding ' + task.name);
+    var file = task.name;
+    encode(file, '/output/' + path.basename(file, '.ts') + '.mkv');
+    callback();
+});
+
+// assign a callback
+queue.drain = function() {
+    console.log('All video files have been processed');
+};
 
 var folder_watcher = chokidar.watch('/watch', {ignored: /[\/\\]\./, persistent: true});
 
@@ -18,7 +30,8 @@ folder_watcher
           sleep.sleep(10);
       } while(fs.statSync(file)["size"] !== fileSizeInBytes);
       console.log('Done copying', file);
-      encode(file, '/output/' + path.basename(file, '.ts') + '.mkv');
+      console.log('Adding', file, 'to the queue');
+      queue.push({name: file});
   });
 
 function encode(orig, dest) {
