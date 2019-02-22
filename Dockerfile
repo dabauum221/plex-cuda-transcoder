@@ -38,7 +38,7 @@ WORKDIR /usr/src/app
 
 # Volumes to work with video files
 VOLUME ["/watch"]
-VOLUME ["/output"]
+VOLUME ["/config"]
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
