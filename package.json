@@ -15,8 +15,7 @@
   "dependencies": {
     "chokidar": "~2.1.2",
     "child_process": "~1.0.2",
-    "sleep": "~6.0.0",
-    "async": "~2.6.1"
+    "sleep": "~6.0.0"
   },
   "devDependencies": {}
 }
