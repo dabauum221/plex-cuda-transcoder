@@ -4,7 +4,7 @@ FROM nvidia/cuda:10.0-devel
 MAINTAINER Daniel Baum <daniel.m.baum@gmail.com>
 
 # Install packages
-RUN apt-get -y update && apt-get install -y wget nano git build-essential yasm pkg-config
+RUN apt-get -y update && apt-get install -y wget curl nano git build-essential yasm pkg-config
 
 RUN git clone --branch n8.2.15.7 https://github.com/FFmpeg/nv-codec-headers.git /root/nv-codec-headers && \
   cd /root/nv-codec-headers &&\
@@ -28,10 +28,17 @@ RUN git clone --branch n3.3.9 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
 # Setup NVIDIA graphics card capabilities
 ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
 
-FROM node:8
+# Install Node 8
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+  && apt-get install -y nodejs \
+  && curl -L https://www.npmjs.com/install.sh | sh
 
 # Create app directory
 WORKDIR /usr/src/app
+
+# Volumes to work with video files
+VOLUME ["/watch"]
+VOLUME ["/output"]
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./

@@ -18,7 +18,7 @@ folder_watcher
           sleep.sleep(10);
       } while(fs.statSync(file)["size"] !== fileSizeInBytes);
       console.log('Done copying', file);
-      encode(file, path.dirname(file) + '/' + path.basename(file, '.ts') + '.mkv');
+      encode(file, '/output/' + path.basename(file, '.ts') + '.mkv');
   });
 
 function encode(orig, dest) {
