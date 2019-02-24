@@ -1,4 +1,4 @@
-# Start with NVidia CUDA base image
+# Start with Nvidia CUDA base image
 FROM nvidia/cuda:10.0-devel
 
 MAINTAINER Daniel Baum <daniel.m.baum@gmail.com>
@@ -25,10 +25,10 @@ RUN git clone --branch n3.3.9 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
   make install -j8 && \
   cd /root && rm -rf ffmpeg
 
-# Setup NVIDIA graphics card capabilities
+# Setup Nvidia graphics card capabilities
 ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
 
-# Setup defaul variables for PLEX
+# Setup default variables for PLEX
 ENV PLEX_HOST localhost
 ENV PLEX_PORT 32400
 ENV PLEX_LIBRARY_ID 1
@@ -54,7 +54,8 @@ RUN npm install --only=production
 COPY . .
 
 # Change the scripts to be executable
-RUN chmod +x ./config/ffmpeg.sh
-RUN chmod +x ./config/post-transcode.sh
+RUN chmod +x ./scripts/ffmpeg.sh
+RUN chmod +x ./scripts/ffmpeg-h265.sh
+RUN chmod +x ./scripts/post-transcode.sh
 
 CMD [ "npm", "start" ]

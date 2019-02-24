@@ -1,6 +1,6 @@
 # Plex CUDA Transcoder
 
-Watch the folder where your TV Show recordings from Plex go and then transcode to H264 using a CUDA enabled video card (optional H265 script provided in the container at /usr/src/app/config).
+Watch the folder where your TV Show recordings from Plex go and then transcode to H264 using a CUDA enabled video card (optional H265 script provided in the container at /usr/src/app/scripts).
 
 ## Requirements
 

@@ -5,7 +5,10 @@ var sleep = require('sleep');
 var path = require('path');
 
 var spawn = child_process.spawn;
-var folder_watcher = chokidar.watch('/watch', {ignored: /[\/\\]\./, persistent: true});
+var folder_watcher = chokidar.watch('/watch', {
+  ignored: /[\/\\]\./,
+  persistent: true
+});
 
 folder_watcher
   .on('add', function(file) {
@@ -20,16 +23,19 @@ folder_watcher
         console.log('Done writing', file + '.', 'Start enciding to MKV...');
         transcode(file, path.dirname(file) + '/' + path.basename(file, '.ts') + '.mkv');
       }
+  })
+  .on('error', function(file) {
+    console.log('Watch error for', file);
   });
 
 function transcode(source, dest) {
-  var args = ['./config/ffmpeg.sh', source, dest];
+  var args = ['./scripts/ffmpeg.sh', source, dest];
   var ffmpeg = spawn('sh', args);
   console.log('Spawning sh ' + args.join(' '));
   ffmpeg.on('exit', function (code, signal) {
     console.log('ffmpeg exited with code ' + code + ' and signal ' + signal);
     if (code === 0) {
-      spawn('sh', ['./config/post-transcode.sh', source]);
+      spawn('sh', ['./scripts/post-transcode.sh', source]);
     }
   });
   ffmpeg.stderr.on('data', function (data) {
