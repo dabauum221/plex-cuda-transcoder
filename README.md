@@ -15,7 +15,7 @@ version: '2.3'
 services:
 
   plex-cuda-transcoder:
-    build: .
+    image: dabauum221/plex-cuda-transcoder:latest
     runtime: nvidia
     container_name: plex-cuda-transcoder
     volumes:
