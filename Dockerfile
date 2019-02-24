@@ -28,6 +28,11 @@ RUN git clone --branch n3.3.9 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
 # Setup NVIDIA graphics card capabilities
 ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
 
+# Setup defaul variables for PLEX
+ENV PLEX_HOST localhost
+ENV PLEX_PORT 32400
+ENV PLEX_LIBRARY_ID 1
+
 # Install Node 8
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
   && apt-get install -y nodejs \
@@ -38,7 +43,6 @@ WORKDIR /usr/src/app
 
 # Volumes to work with video files
 VOLUME ["/watch"]
-VOLUME ["/config"]
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
@@ -48,5 +52,9 @@ RUN npm install --only=production
 
 # Bundle app source
 COPY . .
+
+# Change the scripts to be executable
+RUN chmod +x ./config/ffmpeg.sh
+RUN chmod +x ./config/post-transcode.sh
 
 CMD [ "npm", "start" ]

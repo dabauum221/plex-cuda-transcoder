@@ -18,32 +18,18 @@ folder_watcher
           sleep.sleep(10);
         } while(fs.statSync(file)["size"] !== fileSizeInBytes);
         console.log('Done writing', file + '.', 'Start enciding to MKV...');
-        encode(file, path.dirname(file) + '/' + path.basename(file, '.ts') + '.mkv');
+        transcode(file, path.dirname(file) + '/' + path.basename(file, '.ts') + '.mkv');
       }
   });
 
-function encode(orig, dest) {
-  var args = ['-y',
-    '-hwaccel', 'cuvid',
-    '-c:v', 'mpeg2_cuvid',
-    '-deint', '0', //'adaptive',
-    '-drop_second_field', '1',
-    '-v', 'verbose',
-    '-i', orig,
-    '-c:a', 'copy',
-    '-c:v', 'h264_nvenc',
-    '-preset:v', 'llhq',
-    '-b:v', '4M',
-    '-profile:v', 'main',
-    '-level:v', '4.1',
-    '-f', 'matroska',
-    dest];
-  var ffmpeg = spawn('ffmpeg', args);
-  console.log('Spawning ffmpeg ' + args.join(' '));
+function transcode(source, dest) {
+  var args = ['./config/ffmpeg.sh', source, dest];
+  var ffmpeg = spawn('sh', args);
+  console.log('Spawning sh ' + args.join(' '));
   ffmpeg.on('exit', function (code, signal) {
     console.log('ffmpeg exited with code ' + code + ' and signal ' + signal);
     if (code === 0) {
-      spawn('bash', ['/config/refresh.sh']);
+      spawn('sh', ['./config/post-transcode.sh', source]);
     }
   });
   ffmpeg.stderr.on('data', function (data) {

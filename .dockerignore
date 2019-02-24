@@ -2,3 +2,4 @@ node_modules
 npm-debug.log
 .codenvy.json
 .gitignore
+docker-compose.yml

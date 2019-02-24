@@ -1,11 +1,11 @@
 {
-  "name": "ffmpeg-cuda",
-  "description": "FFmpeg CUDA encoder",
+  "name": "plex-cuda-transcoder",
+  "description": "Plex CUDA transcoder",
   "license": "UNLICENSED",
-  "main": "encoder.js",
+  "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dabauum221/ffmpeg-cuda-encoder.git"
+    "url": "https://github.com/dabauum221/plex-cuda-transcoder.git"
   },
   "scripts": {
     "start": "node main.js",

@@ -16,3 +16,4 @@ dist
 lib
 .sass-cache
 .che
+docker-compose.yml
