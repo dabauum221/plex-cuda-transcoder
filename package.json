@@ -13,8 +13,9 @@
   },
   "author": "Daniel Baum",
   "dependencies": {
-    "chokidar": "~2.1.2",
+    "better-queue": "~3.8.10",
     "child_process": "~1.0.2",
+    "chokidar": "~2.1.2",
     "sleep": "~6.0.0"
   },
   "devDependencies": {}

@@ -1,28 +1,37 @@
 var chokidar = require('chokidar');
 var fs = require("fs");
-var child_process = require('child_process');
-var sleep = require('sleep');
+const execSync = require('child_process').execSync;
+var sleeper = require('sleep');
 var path = require('path');
+var queue = require('better-queue');
 
-var spawn = child_process.spawn;
-var folder_watcher = chokidar.watch('/watch', {
+var watcher = chokidar.watch('/watch', {
   ignored: /[\/\\]\./,
   persistent: true
 });
 
-folder_watcher
+var q = new queue(function (input, cb) {
+  console.log('Started job for', input.file);
+  var fileSizeInBytes;
+  do {
+    fileSizeInBytes = fs.statSync(input.file)["size"];
+    console.log(input.file, 'is still being written, waiting 5 seconds...');
+    sleeper.sleep(5);
+  } while(fs.statSync(input.file)["size"] !== fileSizeInBytes);
+  transcode(input.file, path.dirname(input.file) + '/' + path.basename(input.file, '.ts') + '.mkv');
+  console.log('Done!!!');
+  cb(null, result);
+});
+
+watcher
   .on('add', function(file) {
-      if (file.endsWith('.ts')) {
-        console.log('File', file, 'has been added');
-        var fileSizeInBytes;
-        do {
-          fileSizeInBytes = fs.statSync(file)["size"];
-          console.log(file, 'is still being written, waiting 10 seconds...');
-          sleep.sleep(10);
-        } while(fs.statSync(file)["size"] !== fileSizeInBytes);
-        console.log('Done writing', file + '.', 'Start enciding to MKV...');
-        transcode(file, path.dirname(file) + '/' + path.basename(file, '.ts') + '.mkv');
-      }
+    if (file.endsWith('.ts')) {
+      console.log('File', file, 'has been added');
+      q.push({file: file})
+    }
+  })
+  .on('change', function(file) {
+    console.log('File', file, 'changed');
   })
   .on('error', function(file) {
     console.log('Watch error for', file);
@@ -30,15 +39,14 @@ folder_watcher
 
 function transcode(source, dest) {
   var args = ['./scripts/ffmpeg.sh', source, dest];
-  var ffmpeg = spawn('sh', args);
-  console.log('Spawning sh ' + args.join(' '));
-  ffmpeg.on('exit', function (code, signal) {
-    console.log('ffmpeg exited with code ' + code + ' and signal ' + signal);
-    if (code === 0) {
-      spawn('sh', ['./scripts/post-transcode.sh', source]);
+  var argsJoined = args.join('" "');
+  console.log('Executing', `"${argsJoined}"`);
+  execSync(`"${argsJoined}"`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return;
     }
-  });
-  ffmpeg.stderr.on('data', function (data) {
-    console.log('grep stderr: ' + data);
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
   });
 }
