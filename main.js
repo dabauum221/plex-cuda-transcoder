@@ -50,3 +50,17 @@ function transcode(source, dest) {
     console.log(`stderr: ${stderr}`);
   });
 }
+
+function post(source) {
+  var args = ['./scripts/post-transcode.sh', source];
+  var argsJoined = args.join('" "');
+  console.log('Executing', `"${argsJoined}"`);
+  execSync(`"${argsJoined}"`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
+}
