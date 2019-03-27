@@ -19,6 +19,7 @@ var q = new queue(function (input, cb) {
     sleeper.sleep(5);
   } while(fs.statSync(input.file)["size"] !== fileSizeInBytes);
   transcode(input.file, path.dirname(input.file) + '/' + path.basename(input.file, '.ts') + '.mkv');
+  post(input.file);
   console.log('Done!!!');
   cb(null, result);
 });
