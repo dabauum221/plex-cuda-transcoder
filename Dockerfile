@@ -1,5 +1,5 @@
 # Start with Nvidia CUDA base image
-FROM nvidia/cuda:10.1-devel
+FROM nvidia/cuda:10.2-devel
 
 MAINTAINER Daniel Baum <daniel.m.baum@gmail.com>
 
