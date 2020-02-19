@@ -33,8 +33,8 @@ ENV PLEX_HOST localhost
 ENV PLEX_PORT 32400
 ENV PLEX_LIBRARY_ID 1
 
-# Install Node 8
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+# Install Node 12
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && apt-get install -y nodejs \
   && curl -L https://www.npmjs.com/install.sh | sh
 
