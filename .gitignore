@@ -17,3 +17,5 @@ lib
 .sass-cache
 .che
 docker-compose.yml
+/.settings/
+/.project
