@@ -4,7 +4,7 @@ Watch the folder where Plex stores your recorded content and then transcode new 
 
 ## Requirements
 
-* [NVIDIA driver](https://www.nvidia.com/Download/index.aspx?lang=en-us)
+* [NVIDIA driver](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver)
 * [nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
 
 ## Usage
