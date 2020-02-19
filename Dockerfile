@@ -13,7 +13,7 @@ RUN git clone --branch n9.1.23.1 https://github.com/FFmpeg/nv-codec-headers.git 
   cd /root && rm -rf nv-codec-headers
 
 # Compile and install ffmpeg from source
-RUN git clone --branch n4.1.5 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
+RUN git clone --branch n4.2.2 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
   cd /root/ffmpeg && ./configure \
   --enable-nonfree --disable-shared \
   --enable-nvenc --enable-cuda \
