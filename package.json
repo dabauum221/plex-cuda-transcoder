@@ -13,10 +13,10 @@
   },
   "author": "Daniel Baum",
   "dependencies": {
-    "better-queue": "~3.8.10",
-    "child_process": "~1.0.2",
-    "chokidar": "~2.1.2",
-    "sleep": "~6.0.0"
+    "better-queue": "3.8.10",
+    "child_process": "1.0.2",
+    "chokidar": "3.3.1",
+    "sleep": "6.1.0"
   },
   "devDependencies": {}
 }
