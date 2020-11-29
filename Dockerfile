@@ -1,7 +1,7 @@
 # Start with Nvidia CUDA base image
-FROM nvidia/cuda:10.2-devel
+FROM nvidia/cuda:11.1-devel
 
-MAINTAINER Daniel Baum <daniel.m.baum@gmail.com>
+LABEL maintainer="daniel.m.baum@gmail.com"
 
 # Install packages
 RUN apt-get -y update && apt-get install -y wget curl nano git build-essential yasm pkg-config
@@ -32,6 +32,8 @@ ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
 ENV PLEX_HOST localhost
 ENV PLEX_PORT 32400
 ENV PLEX_LIBRARY_ID 1
+ENV SCRIPT '/usr/src/app/scripts/ffmpeg.sh'
+ENV POST_SCRIPT '/usr/src/app/scripts/post-transcode-plex.sh'
 
 # Install Node 12
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \

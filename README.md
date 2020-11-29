@@ -1,11 +1,15 @@
 # Plex CUDA Transcoder
 
-Watch the folder where Plex stores your recorded content and then transcode new additions to H264 using a CUDA enabled video card (optional H265 script provided in the container at /usr/src/app/scripts).
+Applications like Plex will record live TV content as MPEG2 files with a .TS extension.  Watch the folder where .TS (MPEG2) videos are recorded and then transcode to H264 using a CUDA enabled video card.  There is an optional H265 script provided in the container at /usr/src/app/scripts.  Just set the environmental variable SCRIPT to '/usr/src/app/scripts/ffmpeg-h265.sh'
 
 ## Requirements
 
-* [NVIDIA driver](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver)
-* [nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
+* [NVIDIA driver](https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html)
+* [nvidia-docker2](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+
+### Test Docker with Nvidia Card
+
+docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 
 ## Usage
 

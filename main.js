@@ -39,7 +39,8 @@ watcher
   });
 
 function transcode(source, dest) {
-  var args = ['./scripts/ffmpeg.sh', source, dest];
+  let ffmpegScript = process.env.SCRIPT;
+  var args = [ffmpegScript, source, dest];
   var argsJoined = args.join('" "');
   console.log('Executing', `"${argsJoined}"`);
   execSync(`"${argsJoined}"`, (error, stdout, stderr) => {
@@ -53,7 +54,8 @@ function transcode(source, dest) {
 }
 
 function post(source) {
-  var args = ['./scripts/post-transcode.sh', source];
+  let postScript = process.env.POST_SCRIPT;
+  var args = [postScript, source];
   var argsJoined = args.join('" "');
   console.log('Executing', `"${argsJoined}"`);
   execSync(`"${argsJoined}"`, (error, stdout, stderr) => {
