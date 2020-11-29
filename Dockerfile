@@ -60,6 +60,6 @@ COPY . .
 # Change the scripts to be executable
 RUN chmod +x ./scripts/ffmpeg.sh
 RUN chmod +x ./scripts/ffmpeg-h265.sh
-RUN chmod +x ./scripts/post-transcode.sh
+RUN chmod +x ./scripts/post-transcode-plex.sh
 
 CMD [ "npm", "start" ]
