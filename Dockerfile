@@ -3,6 +3,8 @@ FROM nvidia/cuda:11.1-devel
 
 LABEL maintainer="daniel.m.baum@gmail.com"
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Install packages
 RUN apt-get -y update && apt-get install -y wget curl nano git build-essential yasm pkg-config
 
