@@ -9,7 +9,7 @@ Applications like Plex will record live TV content as MPEG2 files with a .TS ext
 
 ### Test Docker with Nvidia Card
 
-docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+docker run --rm --gpus all nvidia/cuda:11.4.0-base nvidia-smi
 
 ## Usage
 
