@@ -8,14 +8,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Install packages
 RUN apt-get -y update && apt-get install -y wget curl nano git build-essential yasm pkg-config
 
-RUN git clone --branch n11.0.10.0 https://github.com/FFmpeg/nv-codec-headers.git /root/nv-codec-headers && \
+RUN git clone --branch n11.1.5.2 https://github.com/FFmpeg/nv-codec-headers.git /root/nv-codec-headers && \
   cd /root/nv-codec-headers &&\
   make -j8 && \
   make install -j8 && \
   cd /root && rm -rf nv-codec-headers
 
 # Compile and install ffmpeg from source
-RUN git clone --branch n4.3.1 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
+RUN git clone --branch n5.1.2 https://github.com/FFmpeg/FFmpeg /root/ffmpeg && \
   cd /root/ffmpeg && ./configure \
   --enable-nonfree --disable-shared \
   --enable-nvenc --enable-cuda \
