@@ -1,5 +1,5 @@
 # Start with Nvidia CUDA base image
-FROM nvidia/cuda:11.1-devel
+FROM nvidia/cuda:11.4.0-devel
 
 LABEL maintainer="daniel.m.baum@gmail.com"
 
